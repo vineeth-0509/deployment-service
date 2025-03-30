@@ -1,4 +1,4 @@
-import { exec, spawn } from "child_process";
+import { exec, spawn } from "child_process"
 import path from "path";
 
 export function buildProject(id: string) {
