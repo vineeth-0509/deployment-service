@@ -3,15 +3,16 @@ import fs from "fs";
 import path from "path";
 
 const s3 = new S3({
-    accessKeyId: "7ea9c3f8c7f0f26f0d21c5ce99d1ad6a",
-    secretAccessKey: "b4df203781dd711223ce931a2d7ca269cdbf81bb530de4548474584951b798be",
-    endpoint: "https://e21220f4758c0870ba9c388712d42ef2.r2.cloudflarestorage.com"
-})
+    accessKeyId: "187e81ff3394a55f7e59c2e48ee8f8e9",
+    secretAccessKey:
+      "c9ac8bba0facd542f3afef1825109e231dd77a7be50f27e1905d3de7a1e199ee",
+    endpoint: "https://3415fec7341a0355bd1ce61c06382798.r2.cloudflarestorage.com",
+  });
 
 // output/asdasd
 export async function downloadS3Folder(prefix: string) {
     const allFiles = await s3.listObjectsV2({
-        Bucket: "vercel",
+        Bucket: "vineeth-vercel",
         Prefix: prefix
     }).promise();
     
@@ -29,7 +30,7 @@ export async function downloadS3Folder(prefix: string) {
                 fs.mkdirSync(dirName, { recursive: true });
             }
             s3.getObject({
-                Bucket: "vercel",
+                Bucket: "vineeth-vercel",
                 Key
             }).createReadStream().pipe(outputFile).on("finish", () => {
                 resolve("");
@@ -67,7 +68,7 @@ const uploadFile = async (fileName: string, localFilePath: string) => {
     const fileContent = fs.readFileSync(localFilePath);
     const response = await s3.upload({
         Body: fileContent,
-        Bucket: "vercel",
+        Bucket: "vineeth-vercel",
         Key: fileName,
     }).promise();
     console.log(response);
